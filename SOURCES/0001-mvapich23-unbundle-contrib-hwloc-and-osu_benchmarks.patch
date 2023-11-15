@@ -1,0 +1,39 @@
+From 1dc75ee70e44d3dea69392f7e6eca5913d5ef143 Mon Sep 17 00:00:00 2001
+From: Kamal Heib <kheib@redhat.com>
+Date: Mon, 5 Jun 2023 10:05:38 -0400
+Subject: [PATCH] mvapich23: unbundle contrib/hwloc and osu_benchmarks
+
+Signed-off-by: Kamal Heib <kheib@redhat.com>
+---
+ Makefile.in | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index ced43d104194..eab3cfacf5c4 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -3050,14 +3050,14 @@ bin_PROGRAMS = $(am__EXEEXT_1) src/env/mpichversion$(EXEEXT) \
+ @BUILD_F77_BINDING_TRUE@@BUILD_PROFILING_LIB_TRUE@am__append_184 = -DMPICH_MPI_FROM_PMPI -DUSE_ONLY_MPI_NAMES
+ @BUILD_F77_BINDING_TRUE@@BUILD_FC_BINDING_TRUE@am__append_185 = $(mpi_fc_sources)
+ @BUILD_CXX_BINDING_TRUE@am__append_186 = lib/lib@MPICXXLIBNAME@.la
+-@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_187 = contrib/hwloc_v1
+-@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_188 = contrib/hwloc_v2
++@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_187 =
++@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_188 =
+ @BUILD_OSU_MVAPICH_TRUE@am__append_189 = src/env/mpiname src/util/mv2_ckpt_rebuild
+-@BUILD_OMB_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_190 = osu_benchmarks
+-@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_191 = -Icontrib/hwloc_v1/include/ -I$(top_srcdir)/contrib/hwloc_v1/include
+-@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_192 = contrib/hwloc_v1/src/libhwloc_embedded.la
+-@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_193 = -Icontrib/hwloc_v2/include/ -I$(top_srcdir)/contrib/hwloc_v2/include
+-@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_194 = contrib/hwloc_v2/hwloc/libhwloc_embedded.la
++@BUILD_OMB_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_190 =
++@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_191 =
++@BUILD_HWLOC_v1_TRUE@@BUILD_OSU_MVAPICH_TRUE@am__append_192 = -lhwloc
++@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_193 =
++@BUILD_HWLOC_v1_FALSE@@BUILD_OSU_MVAPICH_TRUE@am__append_194 = -lhwloc
+ @BUILD_COVERAGE_TRUE@am__append_195 = coverage-clean
+ subdir = .
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+-- 
+2.40.1
+
