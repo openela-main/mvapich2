@@ -1,7 +1,8 @@
 %{!?python3_sitearch: %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 
 Name:    mvapich2
-Version: 2.3.6
+%global upstream_ver 2.3.7-1
+Version: %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
 Release: 1%{?dist}
 Summary: OSU MVAPICH2 MPI package
 Group:   Development/Libraries
@@ -18,13 +19,12 @@ Group:   Development/Libraries
 ## other than LGPL).
 License: BSD and MIT
 URL:     http://mvapich.cse.ohio-state.edu
-Source:  http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/%{name}-%{version}.tar.gz
+Source:  http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-2.3.7-1.tar.gz
 Source1: mvapich2.module.in
 Source2: mvapich2.macros.in
 # We delete bundled stuff in the prep step. The *-unbundle-* patches adjust
 # the configure scripts and Makefiles accordingly.
-Patch1:  0001-mvapich23-unbundle-contrib-hwloc.patch
-Patch2:  0002-mvapich23-unbundle-osu_benchmarks.patch
+Patch1: 0001-mvapich23-unbundle-contrib-hwloc-and-osu_benchmarks.patch
 
 BuildRequires: gcc-gfortran
 BuildRequires: libibumad-devel, libibverbs-devel >= 1.1.3, librdmacm-devel
@@ -91,9 +91,8 @@ Contains development headers and libraries for %{name}-psm2.
 %endif
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{upstream_ver}
 %patch1 -p1
-%patch2 -p1
 # bundled hwloc, knem kernel module
 rm -r contrib/
 # limic kernel module
@@ -346,6 +345,11 @@ cd ..
 
 
 %changelog
+* Mon Jun 05 2023 Kamal Heib <kheib@redhat.com> - 2.3.7.1-1
+- Update to upstream release 2.3.7-1
+- Add gating tests
+- Resolves: rhbz#2212462
+
 * Thu May 13 2021 Honggang Li <honli@redhat.com> - 2.3.6-1
 - Update to upstream stable point release v2.3.6
 - Resolves: rhbz#1960073
