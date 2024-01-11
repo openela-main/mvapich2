@@ -1,0 +1,6 @@
+%_@MACRONAME@_load \
+ . /etc/profile.d/modules.sh; \
+ module load mpi/@MODULENAME@;
+%_@MACRONAME@_unload \
+ . /etc/profile.d/modules.sh; \
+ module unload mpi/@MODULENAME@;
